@@ -7,4 +7,12 @@ pipeline:
     image: golang:1.8
     commands:
       - go get ./...
-      - go build
+      - CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o bin/proxy
+
+  publish:
+    when:
+      event: push
+      branch: master
+    image: plugins/docker
+    repo: registry.usw.co/cloud/oauth_proxy
+    tags: [ "${DRONE_COMMIT_SHA}", "latest" ]
