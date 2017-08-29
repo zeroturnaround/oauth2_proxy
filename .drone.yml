@@ -1,0 +1,10 @@
+workspace:
+  base: /go
+  path: src/github.com/bitly/oauth_proxy
+
+pipeline:
+  build:
+    image: golang:1.8
+    commands:
+      - go get ./...
+      - go build
