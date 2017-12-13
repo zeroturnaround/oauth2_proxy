@@ -1,12 +1,12 @@
 workspace:
   base: /go
-  path: src/github.com/bitly/oauth_proxy
+  path: src/github.com/uswitch/oauth2_proxy
 
 pipeline:
   build:
-    image: golang:1.8
+    image: golang:1.9
     commands:
-      - go get ./...
+      - go get -v -t ./...
       - CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o bin/proxy
 
   publish:
