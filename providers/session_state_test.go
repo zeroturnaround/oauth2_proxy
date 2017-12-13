@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/bitly/oauth2_proxy/cookie"
+	"github.com/uswitch/oauth2_proxy/cookie"
 	"github.com/stretchr/testify/assert"
 )
 

@@ -3,7 +3,7 @@ package providers
 import (
 	"encoding/base64"
 	"fmt"
-	"github.com/bitly/oauth2_proxy/cookie"
+	"github.com/uswitch/oauth2_proxy/cookie"
 	"strconv"
 	"strings"
 	"time"
