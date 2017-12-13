@@ -1,0 +1,18 @@
+workspace:
+  base: /go
+  path: src/github.com/bitly/oauth_proxy
+
+pipeline:
+  build:
+    image: golang:1.8
+    commands:
+      - go get ./...
+      - CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o bin/proxy
+
+  publish:
+    when:
+      event: push
+      branch: master
+    image: plugins/docker
+    repo: registry.usw.co/cloud/oauth_proxy
+    tags: [ "${DRONE_COMMIT_SHA}", "latest" ]
