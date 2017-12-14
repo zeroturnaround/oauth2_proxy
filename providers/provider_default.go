@@ -41,7 +41,7 @@ func (p *ProviderData) Redeem(redirectURL, code string) (s *SessionState, err er
 	var resp *http.Response
 	resp, c_err := http.DefaultClient.Do(req)
 	if c_err != nil {
-		return
+		return nil, c_err
 	}
 	var body []byte
 	body, b_err := ioutil.ReadAll(resp.Body)
