@@ -14,9 +14,9 @@ import (
 	"strings"
 	"time"
 
+	"github.com/mbland/hmacauth"
 	"github.com/uswitch/oauth2_proxy/cookie"
 	"github.com/uswitch/oauth2_proxy/providers"
-	"github.com/mbland/hmacauth"
 )
 
 const SignatureHeader = "GAP-Signature"
@@ -430,7 +430,10 @@ func (p *OAuthProxy) GetRedirect(req *http.Request) (redirect string, err error)
 
 	redirect = req.Form.Get("rd")
 	if redirect == "" || !strings.HasPrefix(redirect, "/") || strings.HasPrefix(redirect, "//") {
-		redirect = "/"
+		redirect = req.URL.Path
+		if strings.HasPrefix(redirect, p.ProxyPrefix) {
+			redirect = "/"
+		}
 	}
 
 	return
