@@ -430,10 +430,7 @@ func (p *OAuthProxy) GetRedirect(req *http.Request) (redirect string, err error)
 
 	redirect = req.Form.Get("rd")
 	if redirect == "" || !strings.HasPrefix(redirect, "/") || strings.HasPrefix(redirect, "//") {
-		redirect = req.URL.Path
-		if strings.HasPrefix(redirect, p.ProxyPrefix) {
-			redirect = "/"
-		}
+		redirect = "/"
 	}
 
 	return
@@ -577,11 +574,6 @@ func (p *OAuthProxy) OAuthCallback(rw http.ResponseWriter, req *http.Request) {
 			return
 		}
 		session.Groups = strings.Join(groups, p.GroupsDelimiter)
-	}
-
-	redirect = req.Form.Get("state")
-	if !strings.HasPrefix(redirect, "/") || strings.HasPrefix(redirect, "//") {
-		redirect = "/"
 	}
 
 	// set cookie, or deny
