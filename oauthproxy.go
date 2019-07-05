@@ -14,9 +14,9 @@ import (
 	"strings"
 	"time"
 
+	"github.com/mbland/hmacauth"
 	"github.com/uswitch/oauth2_proxy/cookie"
 	"github.com/uswitch/oauth2_proxy/providers"
-	"github.com/mbland/hmacauth"
 )
 
 const SignatureHeader = "GAP-Signature"
@@ -574,11 +574,6 @@ func (p *OAuthProxy) OAuthCallback(rw http.ResponseWriter, req *http.Request) {
 			return
 		}
 		session.Groups = strings.Join(groups, p.GroupsDelimiter)
-	}
-
-	redirect = req.Form.Get("state")
-	if !strings.HasPrefix(redirect, "/") || strings.HasPrefix(redirect, "//") {
-		redirect = "/"
 	}
 
 	// set cookie, or deny
